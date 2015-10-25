@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2013 Las Venturas Mineground
+ * Copyright (c) 2006-2015 Las Venturas Playground
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -20,10 +20,12 @@ use Nuwani \ ModuleManager;
 require_once __DIR__ . '/BanManager.php';
 require_once __DIR__ . '/CommandHelper.php';
 require_once __DIR__ . '/Commands.php';
+require_once __DIR__ . '/PlayerTracker.php';
 require_once __DIR__ . '/SerialMonitor.php';
 
 use Supercereal \ BanManager;
 use Supercereal \ Commands;
+use Supercereal \ PlayerTracker;
 use Supercereal \ SerialMonitor;
 
 class Supercereal extends ModuleBase {
@@ -38,6 +40,23 @@ class Supercereal extends ModuleBase {
 
   // Invoked when someone types something in a public channel.
   public function onChannelPrivmsg(Bot $bot, $channel, $nickname, $message) {
+ 
+    // Check if the message should be processed for the player tracker
+    if ($channel == "#lvp.echo" && preg_match('/Nuw[a,e,i]ni/', $nickname)) {
+      
+      // Is it a join message? Add the player to the tracker
+      if (preg_match("/[\x03]02\[(\d+)\] [\x03]03*\** (\S+) joined the game\./", $message, $matches))
+        PlayerTracker::addPlayer($matches[1], $matches[2]);
+
+      // Is it a part message? Remove the player from the tracker
+      if (preg_match("/[\x03]02\[(\d+)\] [\x03]*03*\** \S+ left the game \(\w+\)\./", $message, $matches))
+        PlayerTracker::removePlayer($matches[1]);
+
+      // Has the server been restarted? Flush the tracker
+      if ($message == chr(2) . "4*** Global Gamemode Initialization")
+        PlayerTracker::flushPlayerTracker();
+    }
+
     if (substr($message, 0, 1) != self::CommandPrefix)
       return;
 
@@ -53,5 +72,4 @@ class Supercereal extends ModuleBase {
 
     return Commands::processCommand($bot, $command, $parameters, $channel, $nickname, $userLevel);
   }
-
 };
