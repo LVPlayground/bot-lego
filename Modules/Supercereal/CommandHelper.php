@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2013 Las Venturas Playground
+ * Copyright (c) 2006-2015 Las Venturas Playground
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
