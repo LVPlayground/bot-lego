@@ -50,7 +50,7 @@ class LowLightHandler {
    */
   public static function processLowLightNotices() {
     if (!self::$m_processLowLightNotices)
-      return var_dump('Cannot load the LowLight File');
+      return echo('Cannot load the LowLight File');
 
     $newLowLightNotices = array_diff(self::getLowLightNotices(), self::$m_lowLightNotices);
 
