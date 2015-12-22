@@ -72,8 +72,9 @@ class Commands {
 
     // Check if the serial is too common and probably not unique
     //TODO: expand the blacklist
-    if ($parameters[0] == "EEACC9DA0D4E9E5EEFEF55C890489095090DD8AF")
-
+    if ($parameters[0] == "EEACC9DA0D4E9E5EEFEF55C890489095090DD8AF" ||
+        $parameters[0] == "F8CF9F4E9DECC554C89CDD05E4FA9C4D48FD08C5" ||
+        $parameters[0] == "4945DECED9CAE99DC5E9449E00898D8DCEAD5CD4")
       return CommandHelper::usageMessage($bot, $channel, 'This serial is too common to ban. Use other methods.');
 
     // Check if the serial is already banned
