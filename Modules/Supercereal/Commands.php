@@ -26,6 +26,7 @@ class Commands {
   const MESSAGE_MAX_LENGTH = 450;
 
   public static function processCommand(Bot $bot, $command, $parameters, $channel, $nickname, $userLevel) {
+    $channel = strtolower($channel);
 
     switch ($command) {
 
