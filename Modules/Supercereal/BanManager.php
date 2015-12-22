@@ -16,6 +16,7 @@
 namespace Supercereal;
 
 use Nuwani;
+use Nuwani \ Bot;
 use Nuwani \ BotManager;
 
 /**

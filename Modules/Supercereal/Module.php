@@ -14,6 +14,7 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Nuwani \ Bot;
 use Nuwani \ BotManager;
 use Nuwani \ ModuleManager;
 
@@ -40,7 +41,7 @@ class Supercereal extends ModuleBase {
 
   // Invoked when someone types something in a public channel.
   public function onChannelPrivmsg(Bot $bot, $channel, $nickname, $message) {
- 
+    
     // Check if the message should be processed for the player tracker
     if ($channel == "#lvp.echo" && preg_match('/Nuw[a,e,i]ni/', $nickname)) {
       

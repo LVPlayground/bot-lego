@@ -17,6 +17,7 @@
 namespace Supercereal;
 
 use \ Nuwani;
+use \ Nuwani \ Bot;
 
 class CommandHelper {
 

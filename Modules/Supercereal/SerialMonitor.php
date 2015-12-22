@@ -16,7 +16,9 @@
 namespace Supercereal;
 
 use Nuwani;
+use Nuwani \ Bot;
 use Nuwani \ BotManager;
+use \ Supercereal;
 
 /**
  * Handles monitoring the gpci file
@@ -55,6 +57,7 @@ class SerialMonitor {
 
       if (!$banReason)
         continue;
+
 
       $bot = BotManager::getInstance()->offsetGet('channel:' . '#LVP.echo');
       if ($bot === false)

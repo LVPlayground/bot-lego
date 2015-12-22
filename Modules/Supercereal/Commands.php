@@ -16,15 +16,17 @@
 
 namespace Supercereal;
 
-use \ ModuleBase;
 use \ Nuwani;
-use \ Supercereal;
+use \ Nuwani \ Bot;
+use \ ModuleBase;
 use \ UserStatus;
+use \ Supercereal;
 
 class Commands {
   const MESSAGE_MAX_LENGTH = 450;
 
   public static function processCommand(Bot $bot, $command, $parameters, $channel, $nickname, $userLevel) {
+
     switch ($command) {
 
       // Operator commands //
@@ -70,6 +72,7 @@ class Commands {
     // Check if the serial is too common and probably not unique
     //TODO: expand the blacklist
     if ($parameters[0] == "EEACC9DA0D4E9E5EEFEF55C890489095090DD8AF")
+
       return CommandHelper::usageMessage($bot, $channel, 'This serial is too common to ban. Use other methods.');
 
     // Check if the serial is already banned
