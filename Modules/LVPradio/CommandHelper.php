@@ -17,7 +17,8 @@
 namespace LVPradio;
 
 use \ Nuwani;
-
+use \ Nuwani \ Bot;
+  
 class CommandHelper {
 
   public static function infoMessage(Bot $bot, $channel, $infoMessage) {

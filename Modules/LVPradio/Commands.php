@@ -18,6 +18,7 @@ namespace LVPradio;
 
 use \ ModuleBase;
 use \ Nuwani;
+use \ Nuwani \ Bot;
 use \ LVPradio;
 use \ UserStatus;
 

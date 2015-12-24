@@ -14,6 +14,7 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Nuwani \ Bot;
 use Nuwani \ BotManager;
 use Nuwani \ ModuleManager;
 
