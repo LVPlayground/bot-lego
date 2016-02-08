@@ -32,12 +32,12 @@ class Commands {
 
       // Operator commands //
       case 'banserial':
-        if ($userLevel >= UserStatus::IsOperator && $channel == "#lvp.crew")
+        if ($userLevel >= UserStatus::IsProtected && $channel == "#lvp.crew")
           self::onBanSerialCommand($bot, $channel, $parameters);
         return true;
 
       case 'unbanserial':
-        if ($userLevel >= UserStatus::IsOperator && $channel == "#lvp.crew")
+        if ($userLevel >= UserStatus::IsProtected && $channel == "#lvp.crew")
           self::onUnbanSerialCommand($bot, $channel, $parameters);
         return true;
 
