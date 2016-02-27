@@ -63,7 +63,7 @@ class Supercereal extends ModuleBase {
 
     $channelTracker = ModuleManager::getInstance()->offsetGet('ChannelTracker');
     if ($channelTracker === false) {
-      echo '[Mineground] Disregarding command as the Channel Tracker is not available.' . PHP_EOL;
+      echo '[Lego] Disregarding command as the Channel Tracker is not available.' . PHP_EOL;
       return;
     }
 
