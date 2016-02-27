@@ -122,14 +122,13 @@ class Commands {
 
     // Check if the serial exists in the BanManager
     $serialBanData = BanManager::isSerialBanned($parameters[0]);
-    var_dump ( $serialBanData );
 
     if ($serialBanData == false)
-      CommandHelper::errorMessage($bot, $channel, 'The serial is not banned');
+      CommandHelper::infoMessage($bot, $channel, 'The serial is not banned');
     elseif (empty($serialBanData[1]) == true) // for backwards compatibility with the old serialbanlist.json
-      CommandHelper::errorMessage($bot, $channel, "This serial is banned for: '$serialBanData[0]'");
+      CommandHelper::infoMessage($bot, $channel, "This serial is banned for: '$serialBanData[0]'");
     else
-      CommandHelper::errorMessage($bot, $channel, "This serial is banned for: '$serialBanData[0]' by '$serialBanData[1]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
+      CommandHelper::infoMessage($bot, $channel, "This serial is banned for: '$serialBanData[0]' by '$serialBanData[1]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
       
   }
 
