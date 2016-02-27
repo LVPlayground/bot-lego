@@ -176,7 +176,7 @@ class Commands {
       $reason = BanManager::isSerialBanned($parameters[0]);
 
       if ($reason)
-        CommandHelper::infoMessage($bot, $channel, 'This serial is banned for \'' . $reason . '\'');
+        CommandHelper::infoMessage($bot, $channel, 'This serial is banned for \'' . $reason[0] . '\'');
       $serialList = array();
       $output = array();
 
