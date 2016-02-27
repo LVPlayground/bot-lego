@@ -104,7 +104,7 @@ class BanManager {
 
     foreach (self::$m_banList as $entry) {
       if ($entry[0] == $serial)
-        return $entry[1];
+        return array($entry[1], $entry[2], $entry[3]);
     }
 
   // return false is nothing is found
