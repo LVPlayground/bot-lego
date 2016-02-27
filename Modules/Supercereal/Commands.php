@@ -32,12 +32,12 @@ class Commands {
 
       // Operator commands //
       case 'banserial':
-        if ($userLevel >= UserStatus::IsProtected && $channel == "#lvp.crew")
-          self::onBanSerialCommand($bot, $channel, $parameters);
+        if ($userLevel >= UserStatus::IsOperator && $channel == "#lvp.crew")
+          self::onBanSerialCommand($bot, $channel, $parameters, $nickname);
         return true;
 
       case 'unbanserial':
-        if ($userLevel >= UserStatus::IsProtected && $channel == "#lvp.crew")
+        if ($userLevel >= UserStatus::IsOperator && $channel == "#lvp.crew")
           self::onUnbanSerialCommand($bot, $channel, $parameters);
         return true;
 
@@ -62,7 +62,7 @@ class Commands {
   }
 
   // Handles !banserial
-  private static function onBanSerialCommand(Bot $bot, $channel, $parameters) {
+  private static function onBanSerialCommand(Bot $bot, $channel, $parameters, $issuer) {
     if (count($parameters) < 2)
       return CommandHelper::usageMessage($bot, $channel, '!banserial [serial] [player name]');
 
@@ -82,7 +82,7 @@ class Commands {
       return CommandHelper::infoMessage($bot, $channel, 'This serial is already banned');
 
     // Ban the serial
-    if (BanManager::addSerialToBanlist($parameters[0], $parameters[1])) {
+    if (BanManager::addSerialToBanlist($parameters[0], $parameters[1], $issuer)) {
       CommandHelper::successMessage($bot, $channel, 'Serial banned');
     }
     else

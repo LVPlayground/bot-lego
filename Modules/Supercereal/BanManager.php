@@ -63,13 +63,13 @@ class BanManager {
   /**
    * Adds an entry to the banlist and saves it
    *
-   * Format: gpci,nickname
+   * Format: gpci, target, issuer
    *
    * @return boolean  true if saving was succesfull or false on failure
    */
-  public static function addSerialToBanlist($serial, $nickname) {
+  public static function addSerialToBanlist($serial, $target, $issuer) {
     // Add entry
-    self::$m_banList[] = array($serial, $nickname);
+    self::$m_banList[] = array($serial, $target, $issuer, time());
 
     // Save the banlist to disk
     return self::saveBanlist();

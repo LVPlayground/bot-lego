@@ -58,7 +58,7 @@ class SerialMonitor {
       if (!$banReason)
         continue;
       
-      if (!PlayerTracker::isPlayerConnected[$serialNotice[1]]) {
+      if (!PlayerTracker::isPlayerConnected($serialNotice[1])) {
         echo "Error: player $serialnotice[0] is no longer connected";
         //continue;
       }
