@@ -103,12 +103,16 @@ class BanManager {
       return false;
 
     foreach (self::$m_banList as $entry) {
-      if ($entry[0] == $serial)
-        return array($entry[1], $entry[2], $entry[3]);
+      if ($entry[0] == $serial) {
+        if (empty($entry[2])) // For backwards compatiblity with old serial bans
+          return array($entry[1]);
+        else
+          return array($entry[1], $entry[2], $entry[3]);
+      }
     }
 
-  // return false is nothing is found
-  return false;
+    // return false is nothing is found
+    return false;
   }
 
 };
