@@ -43,7 +43,7 @@ class Supercereal extends ModuleBase {
   public function onChannelPrivmsg(Bot $bot, $channel, $nickname, $message) {
     
     // Check if the message should be processed for the player tracker
-    if ($channel == "#lvp.echo" && preg_match('/Nuw[a,e,i]ni/', $nickname)) {
+    if ($channel == "#lvp.echo" && preg_match('/N[u,o]w[a,e,i]ni/', $nickname)) {
       
       // Is it a join message? Add the player to the tracker
       if (preg_match("/[\x03]02\[(\d+)\] [\x03]03*\** (\S+) joined the game\./", $message, $matches))
