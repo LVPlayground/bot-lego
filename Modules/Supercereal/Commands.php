@@ -24,6 +24,12 @@ use \ Supercereal;
 
 class Commands {
   const MESSAGE_MAX_LENGTH = 450;
+  
+  //TODO: expand the blacklist
+  private static $m_serialBlackList = array(
+      "EEACC9DA0D4E9E5EEFEF55C890489095090DD8AF",
+      "F8CF9F4E9DECC554C89CDD05E4FA9C4D48FD08C5",
+      "4945DECED9CAE99DC5E9449E00898D8DCEAD5CD4");
 
   public static function processCommand(Bot $bot, $command, $parameters, $channel, $nickname, $userLevel) {
     $channel = strtolower($channel);
@@ -71,16 +77,15 @@ class Commands {
       return CommandHelper::errorMessage($bot, $channel, 'The supplied serial is not valid.');
 
     // Check if the serial is too common and probably not unique
-    //TODO: expand the blacklist
-    if ($parameters[0] == "EEACC9DA0D4E9E5EEFEF55C890489095090DD8AF" ||
-        $parameters[0] == "F8CF9F4E9DECC554C89CDD05E4FA9C4D48FD08C5" ||
-        $parameters[0] == "4945DECED9CAE99DC5E9449E00898D8DCEAD5CD4")
+    if (in_array($parameters[0], self::$m_serialBlackList))
       return CommandHelper::infoMessage($bot, $channel, 'This serial is too common to ban. Use other methods.');
 
+    $serialBanData = BanManager::isSerialBanned($parameters[0]);
+    
     // Check if the serial is already banned
-    if (BanManager::isSerialBanned($parameters[0]))
-      return CommandHelper::infoMessage($bot, $channel, 'This serial is already banned');
-
+    if ($serialBanData !== false)
+      return CommandHelper::infoMessage($bot, $channel, "This serial is banned for: '$serialBanData[0]' by '$serialBanData[1]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
+    
     // Ban the serial
     if (BanManager::addSerialToBanlist($parameters[0], $parameters[1], $issuer)) {
       CommandHelper::successMessage($bot, $channel, 'Serial banned');
@@ -125,8 +130,6 @@ class Commands {
 
     if ($serialBanData == false)
       CommandHelper::infoMessage($bot, $channel, 'The serial is not banned');
-    elseif (empty($serialBanData[1]) == true) // for backwards compatibility with the old serialbanlist.json
-      CommandHelper::infoMessage($bot, $channel, "This serial is banned for: '$serialBanData[0]'");
     else
       CommandHelper::infoMessage($bot, $channel, "This serial is banned for: '$serialBanData[0]' by '$serialBanData[1]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
       
@@ -173,10 +176,15 @@ class Commands {
 
     // Or an serial
     else if (preg_match('/^[A-Z0-9]{40}$/', $parameters[0])) {
-      $reason = BanManager::isSerialBanned($parameters[0]);
+      $serialBanData = BanManager::isSerialBanned($parameters[0]);
 
-      if ($reason)
-        CommandHelper::infoMessage($bot, $channel, 'This serial is banned for \'' . $reason[0] . '\'');
+      // Notify the issuer that this serial has been banned
+      if ($serialBanData !== false)
+        CommandHelper::infoMessage($bot, $channel, "This serial is banned for: '$serialBanData[0]' by '$serialBanData[1]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
+      
+      if (in_array($parameters[0], self::$m_serialBlackList))
+        return CommandHelper::infoMessage($bot, $channel, 'This serial is too common for banning or tracking purposes. Use other methods');
+      
       $serialList = array();
       $output = array();
 
@@ -206,13 +214,6 @@ class Commands {
         $output[] = $serial . ModuleBase::COLOUR_DARKGREY . ' (' . $matches . 'x)' . ModuleBase::CLEAR;
       }
       
-      // Check if the serial is too common and probably not unique
-      //TODO: expand the blacklist
-      if ($parameters[0] == "EEACC9DA0D4E9E5EEFEF55C890489095090DD8AF" ||
-          $parameters[0] == "F8CF9F4E9DECC554C89CDD05E4FA9C4D48FD08C5" ||
-          $parameters[0] == "4945DECED9CAE99DC5E9449E00898D8DCEAD5CD4")
-        CommandHelper::infoMessage($bot, $channel, 'This serial is too common to ban. Use other methods.');
-
       if (!count($serialList))
         return CommandHelper::infoMessage($bot, $channel, 'No serials found');
       else

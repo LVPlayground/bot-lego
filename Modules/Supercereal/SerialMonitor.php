@@ -53,9 +53,9 @@ class SerialMonitor {
 
       $serialNotice = explode(',', $serialNotice);
 
-      $banReason = BanManager::isSerialBanned($serialNotice[3]);
+      $serialBanData = BanManager::isSerialBanned($serialNotice[3]);
 
-      if (!$banReason)
+      if (!$serialBanData[0])
         continue;
       
       if (!PlayerTracker::isPlayerConnected($serialNotice[1])) {
@@ -71,7 +71,7 @@ class SerialMonitor {
         $bot = $bot->current();
 
       $bot->send('PRIVMSG ' . '#LVP.echo' . ' :' . '!ban ' . $serialNotice[1] . ' Ban Evading (Code 3)');
-      CommandHelper::infomessage($bot, '#LVP.Crew', 'Banned ' . $serialNotice[0] . ' reason: ' . $banReason);
+      CommandHelper::infoMessage($bot, $channel, "This serial is banned for: '$serialBanData[0]' by '$serialBanData[1]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
     }
   }
 
