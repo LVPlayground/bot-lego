@@ -55,7 +55,7 @@ class SerialMonitor {
 
       $serialBanData = BanManager::isSerialBanned($serialNotice[3]);
 
-      if (!$serialBanData[0])
+      if ($serialBanData == false)
         continue;
       
       if (!PlayerTracker::isPlayerConnected($serialNotice[1])) {
