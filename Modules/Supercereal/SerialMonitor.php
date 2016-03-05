@@ -71,7 +71,7 @@ class SerialMonitor {
         $bot = $bot->current();
 
       $bot->send('PRIVMSG ' . '#LVP.echo' . ' :' . '!ban ' . $serialNotice[1] . ' Ban Evading (Code 3)');
-      CommandHelper::infoMessage($bot, $channel, "This serial is banned for: '$serialBanData[0]' by '$serialBanData[1]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
+      CommandHelper::infoMessage($bot, '#LVP.Crew', "This serial is banned for: '$serialBanData[0]' by '$serialBanData[1]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
     }
   }
 
