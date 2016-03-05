@@ -2,3 +2,5 @@
 config.php
 
 Data/Commands.dat
+
+nohup.out
