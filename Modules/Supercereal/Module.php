@@ -34,8 +34,8 @@ class Supercereal extends ModuleBase {
   
   // Channel configuration
   // note: channel names should be lowercase
-  const EchoChannel = '#lego';
-  const CrewChannel = '#lego';
+  const EchoChannel = '#lvp.echo';
+  const CrewChannel = '#lvp.crew';
 
   private $m_SerialMonitor;
 
