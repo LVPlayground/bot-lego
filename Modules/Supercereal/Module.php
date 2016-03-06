@@ -31,6 +31,11 @@ use Supercereal \ SerialMonitor;
 
 class Supercereal extends ModuleBase {
   const CommandPrefix = '!';
+  
+  // Channel configuration
+  // note: channel names should be lowercase
+  const EchoChannel = '#lego';
+  const CrewChannel = '#lego';
 
   private $m_SerialMonitor;
 
@@ -43,7 +48,7 @@ class Supercereal extends ModuleBase {
   public function onChannelPrivmsg(Bot $bot, $channel, $nickname, $message) {
     
     // Check if the message should be processed for the player tracker
-    if ($channel == "#lvp.echo" && preg_match('/N[u,o]w[a,e,i,o,u]ni/', $nickname)) {
+    if ($channel == self::EchoChannel && preg_match('/N[u,o]w[a,e,i,o,u]ni/', $nickname)) {
       
       // Is it a join message? Add the player to the tracker
       if (preg_match("/[\x03]02\[(\d+)\] [\x03]03*\** (\S+) joined the game\./", $message, $matches))
@@ -67,7 +72,7 @@ class Supercereal extends ModuleBase {
       return;
     }
 
-    $userLevel = $channelTracker->highestUserLevelForChannel($nickname, '#LVP.echo');
+    $userLevel = $channelTracker->highestUserLevelForChannel($nickname, self::EchoChannel);
     $parameters = preg_split('/\s+/', $message);
     $command = substr(array_shift($parameters), 1);
 

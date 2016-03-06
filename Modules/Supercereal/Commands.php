@@ -38,28 +38,28 @@ class Commands {
 
       // Operator commands //
       case 'banserial':
-        if ($userLevel >= UserStatus::IsOperator && $channel == "#lvp.crew")
+        if ($userLevel >= UserStatus::IsOperator && $channel == Supercereal::CrewChannel)
           self::onBanSerialCommand($bot, $channel, $parameters, $nickname);
         return true;
 
       case 'unbanserial':
-        if ($userLevel >= UserStatus::IsOperator && $channel == "#lvp.crew")
+        if ($userLevel >= UserStatus::IsOperator && $channel == Supercereal::CrewChannel)
           self::onUnbanSerialCommand($bot, $channel, $parameters);
         return true;
 
       case 'isserialbanned':
-        if ($userLevel >= UserStatus::IsOperator && $channel == "#lvp.crew")
+        if ($userLevel >= UserStatus::IsOperator && $channel == Supercereal::CrewChannel)
           self::onIsSerialBannedCommand($bot, $channel, $parameters);
         return true;
 
       case 'serialinfo':
-        if ($userLevel >= UserStatus::IsOperator && $channel == "#lvp.crew")
+        if ($userLevel >= UserStatus::IsOperator && $channel == Supercereal::CrewChannel)
           self::onSerialInfoCommand($bot, $channel, $parameters);
         return true;
 
       // Protected commands //
       case 'reloadserialbanlist':
-        if ($userLevel >= UserStatus::IsProtected && $channel == "#lvp.crew")
+        if ($userLevel >= UserStatus::IsProtected && $channel == Supercereal::CrewChannel)
           self::onReloadserialbanlistCommand($bot, $channel);
         return true;
     }
