@@ -101,14 +101,11 @@ class BanManager {
   public static function isSerialBanned($serial) {
     if (!is_array(self::$m_banList))
       return false;
-
+    
+    // Look throught the serial banlist for matches
     foreach (self::$m_banList as $entry) {
-      if ($entry[0] == $serial) {
-        if (empty($entry[2])) // For backwards compatiblity with old serial bans
-          return array($entry[1]);
-        else
-          return array($entry[1], $entry[2], $entry[3]);
-      }
+      if ($entry[0] == $serial)
+        return array($entry[1], $entry[2], $entry[3]);
     }
 
     // return false is nothing is found
