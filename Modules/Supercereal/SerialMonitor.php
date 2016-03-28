@@ -96,7 +96,7 @@ class SerialMonitor {
       $bot->send('PRIVMSG ' .  Supercereal::EchoChannel . ' :' . '!ban ' . $serialNotice[1] . ' Ban Evading (Code 3)');
       
       // Notify the crew that someone tried to evade and was denied entry
-      CommandHelper::infoMessage($bot, Supercereal::CrewChannel, "This serial is banned for: '$serialBanData[0]' by '$serialBanData[1]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
+      CommandHelper::infoMessage($bot, Supercereal::CrewChannel, "'$serialBanData[1]' was denied entry being serial banned for: '$serialBanData[0]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
     }
   }
 };

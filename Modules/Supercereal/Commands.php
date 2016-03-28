@@ -29,7 +29,12 @@ class Commands {
   private static $m_serialBlackList = array(
       "EEACC9DA0D4E9E5EEFEF55C890489095090DD8AF",
       "F8CF9F4E9DECC554C89CDD05E4FA9C4D48FD08C5",
-      "4945DECED9CAE99DC5E9449E00898D8DCEAD5CD4");
+      "4945DECED9CAE99DC5E9449E00898D8DCEAD5CD4",
+      "C4EE5AAE444859EDDEC8C999CE98DAD4ED80DAFE",
+      "AC90E8CECFF88CE8D5C884E8DCCE804909EDD5A9",
+      "CFDADC8489FDEEAFEE80C4AD5D8EE4FEDEEE5548",
+      "DDE48048E9DD8899C40DE4A84084504EDD0CA494",
+      );
 
   public static function processCommand(Bot $bot, $command, $parameters, $channel, $nickname, $userLevel) {
     $channel = strtolower($channel);
@@ -84,7 +89,7 @@ class Commands {
     
     // Check if the serial is already banned
     if ($serialBanData !== false)
-      return CommandHelper::infoMessage($bot, $channel, "This serial is banned for: '$serialBanData[0]' by '$serialBanData[1]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
+      return CommandHelper::infoMessage($bot, $channel, "This serial is already banned for: '$serialBanData[0]' by '$serialBanData[1]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
     
     // Ban the serial
     if (BanManager::addSerialToBanlist($parameters[0], $parameters[1], $issuer)) {
