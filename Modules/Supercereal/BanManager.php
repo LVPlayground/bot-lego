@@ -20,20 +20,21 @@ use Nuwani \ Bot;
 use Nuwani \ BotManager;
 
 /**
- * Checks with players should be banned and maintains the list
+ * Checks with players should be banned and maintains the ban list
  *
  * @author Joeri de Graaf <joeri@oostcoast.nl>
  */
 class BanManager {
 
+  // Path to the json file containing the ban list
   const BanListFile = 'Modules/Supercereal/banlist.json';
+  
+  // Keeps track of the online ban list
+  // Format: gpci, nickname, issuer, datetime of ban
   private static $m_banList;
-
+  
   /**
    * Loads the banlist from disk
-   *
-   * Format:
-   * gpci,nickname
    *
    * @return [type] [description]
    */
@@ -49,8 +50,6 @@ class BanManager {
   /**
    * Saves the banlist to disk
    *
-   * Format: gpci,nickname
-   *
    * @return boolean  true if saving was succesfull or false on failure
    */
   public static function saveBanlist() {
@@ -63,12 +62,12 @@ class BanManager {
   /**
    * Adds an entry to the banlist and saves it
    *
-   * Format: gpci, target, issuer
+   * @param  string $serial gpci to add to the ban list
    *
    * @return boolean  true if saving was succesfull or false on failure
    */
   public static function addSerialToBanlist($serial, $target, $issuer) {
-    // Add entry
+    // Add entry to the list
     self::$m_banList[] = array($serial, $target, $issuer, time());
 
     // Save the banlist to disk
@@ -78,8 +77,9 @@ class BanManager {
   /**
    * Removes an entry from the banlist and saves it
    *
-   * Format: gpci
+   * @param  string $serial gpci to remove from the ban list
    *
+   * @return boolean true if saving was succesfull
    */
   public static function removeSerialFromBanList($serial) {
     foreach (self::$m_banList as $key => $entry) {
@@ -90,19 +90,18 @@ class BanManager {
     return self::saveBanlist();
   }
 
-
   /**
    * Tests whether a serial is banned
    *
    * @param  string $serial gpci to check
    *
-   * @return mixed  false if no match was found or the reason of it was.
+   * @return mixed  false if no match was found or an array with the ban data it was.
    */
   public static function isSerialBanned($serial) {
     if (!is_array(self::$m_banList))
       return false;
     
-    // Look throught the serial banlist for matches
+    // Look through the serial banlist for matches
     foreach (self::$m_banList as $entry) {
       if ($entry[0] == $serial)
         return array($entry[1], $entry[2], $entry[3]);
@@ -111,6 +110,5 @@ class BanManager {
     // return false is nothing is found
     return false;
   }
-
 };
 ?>
