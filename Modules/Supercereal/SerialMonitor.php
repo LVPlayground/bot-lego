@@ -85,7 +85,7 @@ class SerialMonitor {
       // Check whether the player is still connected and is not another player with the same id
       if (!PlayerTracker::isPlayerConnected($serialNotice[1])) {
         echo "Error: player $serialNotice[0] is no longer connected" . PHP_EOL;
-        //continue;
+        continue;
       }
       
       $bot = BotManager::getInstance()->offsetGet('channel:' . Supercereal::EchoChannel);
@@ -96,7 +96,7 @@ class SerialMonitor {
         $bot = $bot->current();
 
       // Tell Nuwani to ban the id of the evading person
-      $bot->send('PRIVMSG ' .  Supercereal::EchoChannel . ' :' . '!ban ' . $serialNotice[1] . ' Ban Evading (Code 3)');
+      CommandHelper::channelMessage($bot, Supercereal::EchoChannel, '!ban ' . $serialNotice[1] . ' Ban Evading (Code 3)');
       
       // Notify the crew that someone tried to evade and was denied entry
       CommandHelper::infoMessage($bot, Supercereal::CrewChannel, "'$serialNotice[0]' was denied entry being serial banned for '$serialBanData[0]' on " . date('j/n/Y G:i:s', $serialBanData[2]));
