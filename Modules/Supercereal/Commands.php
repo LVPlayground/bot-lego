@@ -274,7 +274,7 @@ class Commands {
 
   // Utility function to fetch an array with results from through a grep on the serial log
   private static function getGrepResults($needle) {
-    $grepResult = shell_exec('grep -iF "' . escapeshellcmd($needle) . '" ' . SerialMonitor::$m_serialLogFile);
+    $grepResult = shell_exec('grep -iF ' . escapeshellarg($needle) . ' ' . SerialMonitor::$m_serialLogFile);
     $grepResults = explode("\r\n", $grepResult);
 
     $results = array();
